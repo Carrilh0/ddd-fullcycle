@@ -12,7 +12,7 @@ customer.activate()
 
 // Agregado Order
 // Relação Objeto/Entidade
-let item1 = new OrderItem("1", "Notebook", 4000)
-let item2 = new OrderItem("2", "Monitor", 1000)
+let item1 = new OrderItem("1", "Notebook", 4000, "p1", 1)
+let item2 = new OrderItem("2", "Monitor", 1000, "p2", 1)
 
 let order = new Order("1", "1", [item1, item2])
