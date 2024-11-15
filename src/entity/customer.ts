@@ -12,6 +12,10 @@ export class Customer {
     this.validate()
   }
 
+  get name(): string {
+    return this._name
+  }
+
   validate() {
     if (this._name.length === 0) {
       throw new Error("Name is required")
@@ -26,8 +30,12 @@ export class Customer {
     this.validate()
   }
 
+  isActive(): boolean {
+    return this._active
+  }
+
   activate() {
-    if(this._address !== undefined) {
+    if(this._address === undefined) {
       throw new Error("Address is mandatory to activate a customer")
     }
     this._active = true
@@ -41,7 +49,3 @@ export class Customer {
     this._address = address
   }
 }
-
-const customer = new Customer('1','Vitor')
-
-console.log(customer.Address = new Address('asd', 2,'2324', 'SSA'))

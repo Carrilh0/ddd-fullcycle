@@ -1,9 +1,9 @@
 import { OrderItem } from "./orderItem";
 
 export class Order {
-  _id: string;
-  _customerId: string;
-  _items: OrderItem[] = [];
+  private _id: string;
+  private _customerId: string;
+  private _items: OrderItem[] = [];
 
   constructor(id: string, customerId: string, items: OrderItem[]) {
     this._id = id
