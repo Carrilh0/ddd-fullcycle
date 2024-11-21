@@ -39,8 +39,6 @@ export default class OrderRepository {
         where: {id}, 
         include: ["items"]
       })
-
-      console.log(order.items)
     } catch (error) {
       throw new Error("Order not found")
     }
@@ -53,6 +51,15 @@ export default class OrderRepository {
   }
   
   async findAll(): Promise<Order[]> {
-    return
+    const orders = await OrderModel.findAll({
+      include: ["items"]
+    })
+
+    return orders.map((order) => {
+      const orderItems = order.items.map((item) => {
+        return new OrderItem(item.id, item.name, item.price, item.product_id, item.quantity)
+      })
+      return new Order(order.id, order.customer_id, orderItems)
+    })
   }
 }

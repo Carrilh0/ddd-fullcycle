@@ -90,19 +90,41 @@ describe("Order repository test", () => {
     const product = new Product("123", "Product 1", 10);
     await productRepository.create(product);
 
-    const orderItem = new OrderItem(
-      "1",
-      product.name,
-      product.price,
-      product.id,
-      2
-    );
+    const orderItem = new OrderItem("1",product.name, product.price, product.id, 2);
     const order = new Order("1","1",[orderItem])
 
     await orderRepository.create(order)
 
     const orderResult = await orderRepository.find("1")
-    console.log(orderResult)
+
     expect(order).toStrictEqual(orderResult);
   });
+
+  it("should find all orders", async () => {
+    const orderRepository = new OrderRepository();
+    const customerRepository = new CustomerRepository()
+    const productRepository = new ProductRepository();
+
+    const customer = new Customer("1", "Customer 1");
+    const address = new Address("Street 1", 1, "Zipcode 1", "City 1");
+    customer.changeAddress(address);
+    await customerRepository.create(customer);
+    
+    const product = new Product("123", "Product 1", 10);
+    await productRepository.create(product);
+
+    const orderItem1 = new OrderItem("1", product.name, product.price, product.id, 2);
+    const orderItem2 = new OrderItem("2", product.name, product.price, product.id, 2);
+
+    
+    const order1 = new Order("1","1",[orderItem1])
+    const order2 = new Order("2","1",[orderItem2])
+    await orderRepository.create(order1)
+    await orderRepository.create(order2)
+
+    const orders = [order1, order2]
+
+    const modelOrders = await orderRepository.findAll()
+    expect(modelOrders).toEqual(orders)
+  })
 })
