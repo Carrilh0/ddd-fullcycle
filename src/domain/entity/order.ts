@@ -44,6 +44,10 @@ export class Order {
     return true
   }
 
+  addOrderItem(entity: OrderItem) {
+    this._items.push(entity)
+  }
+
   total(): number {
     return this._items.reduce((acc, item) => acc + item.orderItemTotal(), 0);
   }
